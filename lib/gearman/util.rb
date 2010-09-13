@@ -134,8 +134,6 @@ class Util
   # @param sock  Socket connected to a job server
   # @param req   request packet to send
   def Util.send_request(sock, req)
-    puts req.encoding
-    puts req.encoding
     len = sock.write(req)
     if len != req.bytesize
       raise NetworkError, "Wrote #{len} instead of #{req.size}"
