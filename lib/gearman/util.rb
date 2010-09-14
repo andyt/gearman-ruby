@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+# encoding: UTF-8
 require 'socket'
 require 'time'
 
@@ -69,7 +69,7 @@ class Util
     type_num = NUMS[type_name.to_sym]
     raise InvalidArgsError, "Invalid type name '#{type_name}'" unless type_num
     arg = '' if not arg
-    "\0REQ" + [type_num, arg.size].pack('NN') + arg
+    "\0REQ" + [type_num, arg.size].pack('NN').force_encoding("UTF-8") + arg
   end
 
   ##
