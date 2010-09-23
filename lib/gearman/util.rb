@@ -104,9 +104,9 @@ class Util
         or break
       data += sock.readpartial(len - data.size)
     end
-    if data.bytesize < len
-      raise NetworkError, "Read #{data.bytesize} byte(s) instead of #{len}"
-    end
+    # if data.bytesize < len
+    #   raise NetworkError, "Read #{data.bytesize} byte(s) instead of #{len}"
+    # end
     data
   end
 
