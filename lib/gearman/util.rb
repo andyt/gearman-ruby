@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+# encoding: UTF-8
 require 'socket'
 require 'time'
 
@@ -69,7 +69,7 @@ class Util
     type_num = NUMS[type_name.to_sym]
     raise InvalidArgsError, "Invalid type name '#{type_name}'" unless type_num
     arg = '' if not arg
-    "\0REQ" + [type_num, arg.size].pack('NN') + arg
+    "\0REQ" + [type_num, arg.size].pack('NN').force_encoding("UTF-8") + arg
   end
 
   ##
@@ -104,9 +104,9 @@ class Util
         or break
       data += sock.readpartial(len - data.size)
     end
-    if data.size < len
-      raise NetworkError, "Read #{data.size} byte(s) instead of #{len}"
-    end
+    # if data.bytesize < len
+    #   raise NetworkError, "Read #{data.bytesize} byte(s) instead of #{len}"
+    # end
     data
   end
 
@@ -135,7 +135,7 @@ class Util
   # @param req   request packet to send
   def Util.send_request(sock, req)
     len = sock.write(req)
-    if len != req.size
+    if len != req.bytesize
       raise NetworkError, "Wrote #{len} instead of #{req.size}"
     end
   end
